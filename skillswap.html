@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSwap - Master a New Skill, Pay with Your Own</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-green: #2D5A27;
+            --deep-forest: #1e3d1a;
+            --goldenrod: #FFD700;
+            --sun-yellow: #FFC800;
+            --light-cream: #FFFEF7;
+            --soft-white: #FAFAF8;
+            --text-dark: #1a2817;
+            --text-gray: #5a6b54;
+            --border-light: #e8ede6;
+            --shadow-soft: rgba(45, 90, 39, 0.08);
+            --shadow-medium: rgba(45, 90, 39, 0.12);
+            --glow-yellow: rgba(255, 215, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--light-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 254, 247, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--border-light);
+            z-index: 1000;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--forest-green);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--forest-green), var(--deep-forest));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--goldenrod);
+            font-weight: 800;
+            font-size: 1.2rem;
+            transform: rotate(-5deg);
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--forest-green);
+        }
+
+        .nav-cta {
+            background: var(--forest-green);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 16px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-cta:hover {
+            background: var(--deep-forest);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px var(--shadow-medium);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 1.5rem 3rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--glow-yellow) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30px, -30px) scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: white;
+            border: 2px solid var(--goldenrod);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--forest-green);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px var(--glow-yellow);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 4px 15px var(--glow-yellow); }
+            50% { box-shadow: 0 6px 25px var(--glow-yellow); }
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 .highlight {
+            color: var(--forest-green);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: var(--goldenrod);
+            opacity: 0.35;
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-gray);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .search-box {
+            background: white;
+            border: 3px solid var(--forest-green);
+            border-radius: 20px;
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 30px var(--shadow-soft);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .search-box:focus-within {
+            box-shadow: 0 12px 40px var(--shadow-medium);
+            border-color: var(--deep-forest);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
+            outline: none;
+            font-family: 'DM Sans', sans-serif;
+            background: transparent;
+        }
+
+        .search-box button {
+            background: var(--goldenrod);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--deep-forest);
+            font-size: 1rem;
+        }
+
+        .search-box button:hover {
+            background: var(--sun-yellow);
+            transform: scale(1.02);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .btn-primary {
+            background: var(--forest-green);
+            color: white;
+            padding: 1.125rem 2.5rem;
+            border-radius: 16px;
+            border: none;
+            font-weight: 700;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px var(--shadow-medium);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--deep-forest);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px var(--shadow-medium);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--forest-green);
+            padding: 1.125rem 2.5rem;
+            border-radius: 16px;
+            border: 2px solid var(--forest-green);
+            font-weight: 600;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--forest-green);
+            color: white;
+        }
+
+        /* Trust Bar */
+        .trust-bar {
+            background: white;
+            padding: 2rem 1.5rem;
+            margin: 3rem 0;
+            border-top: 3px solid var(--goldenrod);
+            border-bottom: 3px solid var(--goldenrod);
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .trust-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .trust-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--forest-green), var(--goldenrod));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: white;
+        }
+
+        .trust-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--forest-green);
+        }
+
+        .trust-description {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            max-width: 250px;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 4rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 1.125rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .step-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 24px;
+            border: 2px solid var(--border-light);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--forest-green), var(--goldenrod));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .step-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-medium);
+            border-color: var(--forest-green);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--goldenrod);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--deep-forest);
+            margin-bottom: 1.5rem;
+        }
+
+        .step-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--forest-green);
+        }
+
+        .step-description {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* Trending Swaps */
+        .trending-swaps {
+            padding: 4rem 1.5rem;
+            background: linear-gradient(180deg, var(--soft-white) 0%, white 100%);
+        }
+
+        .swaps-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid var(--border-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, var(--glow-yellow) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .skill-card:hover::after {
+            opacity: 1;
+        }
+
+        .skill-card:hover {
+            border-color: var(--forest-green);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px var(--shadow-medium);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .skill-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-rating {
+            background: var(--goldenrod);
+            color: var(--deep-forest);
+            padding: 0.35rem 0.85rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .skill-description {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .skill-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .meta-icon {
+            font-weight: 600;
+            color: var(--forest-green);
+        }
+
+        /* Dashboard Section */
+        .dashboard-preview {
+            padding: 4rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-container {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 3px solid var(--forest-green);
+            box-shadow: 0 20px 60px var(--shadow-medium);
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--forest-green), var(--deep-forest));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .dashboard-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: 500px;
+        }
+
+        .sidebar {
+            background: var(--soft-white);
+            padding: 2rem 1.5rem;
+            border-right: 2px solid var(--border-light);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            margin-bottom: 0.75rem;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: var(--forest-green);
+            color: white;
+        }
+
+        .sidebar-icon {
+            font-size: 1.25rem;
+        }
+
+        .dashboard-content {
+            padding: 2rem 1.5rem;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--soft-white), white);
+            padding: 1.75rem;
+            border-radius: 18px;
+            border: 2px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--shadow-soft);
+        }
+
+        .stat-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--forest-green);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--deep-forest);
+            color: white;
+            padding: 3rem 1.5rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--goldenrod);
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--goldenrod);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--goldenrod);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .trust-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .steps-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-layout {
+                grid-template-columns: 280px 1fr;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 4.25rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .hero h1 {
+                font-size: 4.75rem;
+            }
+        }
+
+        /* Scroll reveal animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: revealOnScroll 0.8s ease-out forwards;
+        }
+
+        @keyframes revealOnScroll {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">S</div>
+                SkillSwap
+            </a>
+            <ul class="nav-links">
+                <li><a href="#how">How It Works</a></li>
+                <li><a href="#skills">Browse Skills</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#community">Community</a></li>
+            </ul>
+            <a href="#join" class="nav-cta">Join Free</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">🌱 100% Free Forever • Community Vetted</span>
+            <h1>
+                Master a New Skill,<br>
+                <span class="highlight">Pay with Your Own</span>
+            </h1>
+            <p class="hero-description">
+                Join thousands of learners swapping knowledge for free. No money, no subscriptions—just pure skill exchange. Teach what you know, learn what you need.
+            </p>
+            
+            <div class="search-box">
+                <input type="text" placeholder="Search for skills like 'Public Speaking', 'Design', 'Coding'...">
+                <button>Explore</button>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="#join" class="btn-primary">Join for Free</a>
+                <a href="#how" class="btn-secondary">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+        <div class="trust-container">
+            <div class="trust-item">
+                <div class="trust-icon">💚</div>
+                <h3 class="trust-title">100% Free</h3>
+                <p class="trust-description">Zero fees, zero subscriptions. Just knowledge sharing.</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">✓</div>
+                <h3 class="trust-title">Community Vetted</h3>
+                <p class="trust-description">All members reviewed and rated by peers.</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">🔒</div>
+                <h3 class="trust-title">Safe & Secure</h3>
+                <p class="trust-description">Verified profiles and secure messaging.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how" class="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Three simple steps to start your knowledge exchange journey</p>
+        
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3 class="step-title">List Your Skills</h3>
+                <p class="step-description">
+                    Share what you're great at—from graphic design to cooking, public speaking to coding. Your expertise has value, and someone out there wants to learn it.
+                </p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Find a Partner</h3>
+                <p class="step-description">
+                    Browse our community, discover skills you want to learn, and connect with matched partners. Filter by availability, location, and expertise level.
+                </p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Swap Knowledge</h3>
+                <p class="step-description">
+                    Schedule sessions, exchange skills 1:1, and track your learning journey. An hour of your time for an hour of theirs—simple, fair, transformative.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Swaps -->
+    <section id="skills" class="trending-swaps">
+        <div class="swaps-container">
+            <h2 class="section-title">Trending Swaps</h2>
+            <p class="section-subtitle">Most popular soft skills being exchanged right now</p>
+            
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div>
+                            <h3 class="skill-title">Active Listening</h3>
+                        </div>
+                        <div class="skill-rating">★ 4.9</div>
+                    </div>
+                    <p class="skill-description">"Master the art of hearing what isn't said."</p>
+                    <div class="skill-meta">
+                        <span class="meta-item"><span class="meta-icon">⏱</span> 3-4 sessions</span>
+                        <span class="meta-item"><span class="meta-icon">👥</span> 127 swappers</span>
+                        <span class="meta-item"><span class="meta-icon">📍</span> Remote</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div>
+                            <h3 class="skill-title">Conflict Resolution</h3>
+                        </div>
+                        <div class="skill-rating">★ 4.8</div>
+                    </div>
+                    <p class="skill-description">"Turn workplace friction into productive growth."</p>
+                    <div class="skill-meta">
+                        <span class="meta-item"><span class="meta-icon">⏱</span> 4-5 sessions</span>
+                        <span class="meta-item"><span class="meta-icon">👥</span> 98 swappers</span>
+                        <span class="meta-item"><span class="meta-icon">📍</span> Hybrid</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div>
+                            <h3 class="skill-title">Public Speaking</h3>
+                        </div>
+                        <div class="skill-rating">★ 5.0</div>
+                    </div>
+                    <p class="skill-description">"Go from 'stage fright' to 'stage bright' in 3 sessions."</p>
+                    <div class="skill-meta">
+                        <span class="meta-item"><span class="meta-icon">⏱</span> 3 sessions</span>
+                        <span class="meta-item"><span class="meta-icon">👥</span> 215 swappers</span>
+                        <span class="meta-item"><span class="meta-icon">📍</span> In-person</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div>
+                            <h3 class="skill-title">Time Management</h3>
+                        </div>
+                        <div class="skill-rating">★ 4.7</div>
+                    </div>
+                    <p class="skill-description">"Learn the 'Time-Boxing' method for maximum focus."</p>
+                    <div class="skill-meta">
+                        <span class="meta-item"><span class="meta-icon">⏱</span> 2-3 sessions</span>
+                        <span class="meta-item"><span class="meta-icon">👥</span> 182 swappers</span>
+                        <span class="meta-item"><span class="meta-icon">📍</span> Remote</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div>
+                            <h3 class="skill-title">Emotional Intelligence</h3>
+                        </div>
+                        <div class="skill-rating">★ 4.9</div>
+                    </div>
+                    <p class="skill-description">"Better understand your team and yourself."</p>
+                    <div class="skill-meta">
+                        <span class="meta-item"><span class="meta-icon">⏱</span> 5-6 sessions</span>
+                        <span class="meta-item"><span class="meta-icon">👥</span> 156 swappers</span>
+                        <span class="meta-item"><span class="meta-icon">📍</span> Remote</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div>
+                            <h3 class="skill-title">Adaptability</h3>
+                        </div>
+                        <div class="skill-rating">★ 4.8</div>
+                    </div>
+                    <p class="skill-description">"How to stay calm and thrive during rapid change."</p>
+                    <div class="skill-meta">
+                        <span class="meta-item"><span class="meta-icon">⏱</span> 3-4 sessions</span>
+                        <span class="meta-item"><span class="meta-icon">👥</span> 143 swappers</span>
+                        <span class="meta-item"><span class="meta-icon">📍</span> Hybrid</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div>
+                            <h3 class="skill-title">Creative Problem Solving</h3>
+                        </div>
+                        <div class="skill-rating">★ 5.0</div>
+                    </div>
+                    <p class="skill-description">"Brainstorming techniques to break any mental block."</p>
+                    <div class="skill-meta">
+                        <span class="meta-item"><span class="meta-icon">⏱</span> 4 sessions</span>
+                        <span class="meta-item"><span class="meta-icon">👥</span> 192 swappers</span>
+                        <span class="meta-item"><span class="meta-icon">📍</span> Remote</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div>
+                            <h3 class="skill-title">Critical Thinking</h3>
+                        </div>
+                        <div class="skill-rating">★ 4.9</div>
+                    </div>
+                    <p class="skill-description">"Analyze information objectively and make better decisions."</p>
+                    <div class="skill-meta">
+                        <span class="meta-item"><span class="meta-icon">⏱</span> 4-5 sessions</span>
+                        <span class="meta-item"><span class="meta-icon">👥</span> 168 swappers</span>
+                        <span class="meta-item"><span class="meta-icon">📍</span> Remote</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div>
+                            <h3 class="skill-title">Negotiation</h3>
+                        </div>
+                        <div class="skill-rating">★ 4.8</div>
+                    </div>
+                    <p class="skill-description">"The 'Win-Win' framework for freelancers and pros."</p>
+                    <div class="skill-meta">
+                        <span class="meta-item"><span class="meta-icon">⏱</span> 3-4 sessions</span>
+                        <span class="meta-item"><span class="meta-icon">👥</span> 134 swappers</span>
+                        <span class="meta-item"><span class="meta-icon">📍</span> Hybrid</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div>
+                            <h3 class="skill-title">Collaborative Leadership</h3>
+                        </div>
+                        <div class="skill-rating">★ 5.0</div>
+                    </div>
+                    <p class="skill-description">"How to lead a team without being a 'boss'."</p>
+                    <div class="skill-meta">
+                        <span class="meta-item"><span class="meta-icon">⏱</span> 5-6 sessions</span>
+                        <span class="meta-item"><span class="meta-icon">👥</span> 201 swappers</span>
+                        <span class="meta-item"><span class="meta-icon">📍</span> In-person</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section id="dashboard" class="dashboard-preview">
+        <h2 class="section-title">Your Personal Dashboard</h2>
+        <p class="section-subtitle">Track your swaps, manage connections, and level up your skills</p>
+        
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h2>Welcome Back, Alex! 👋</h2>
+                <p>You have 3 active swaps and 2 new messages</p>
+            </div>
+            
+            <div class="dashboard-layout">
+                <aside class="sidebar">
+                    <ul class="sidebar-menu">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link active">
+                                <span class="sidebar-icon">📊</span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <span class="sidebar-icon">💬</span>
+                                <span>Messages</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <span class="sidebar-icon">🔄</span>
+                                <span>My Swaps</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <span class="sidebar-icon">🔍</span>
+                                <span>Find Skills</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <span class="sidebar-icon">👤</span>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <span class="sidebar-icon">⚙️</span>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+                
+                <main class="dashboard-content">
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Skills Learned</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">Skills Taught</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">47</div>
+                            <div class="stat-label">Hours Exchanged</div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--forest-green);">Active Swaps</h3>
+                    
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <div>
+                                    <h3 class="skill-title">Public Speaking</h3>
+                                </div>
+                                <div class="skill-rating">Session 2/3</div>
+                            </div>
+                            <p class="skill-description">Learning from Sarah M. • Next session: Tomorrow 3pm</p>
+                            <div class="skill-meta">
+                                <span class="meta-item"><span class="meta-icon">✓</span> In Progress</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <div>
+                                    <h3 class="skill-title">Graphic Design</h3>
+                                </div>
+                                <div class="skill-rating">Session 1/4</div>
+                            </div>
+                            <p class="skill-description">Teaching to Mike L. • Next session: Friday 6pm</p>
+                            <div class="skill-meta">
+                                <span class="meta-item"><span class="meta-icon">📚</span> Teaching</span>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">SkillSwap</div>
+                    <p class="footer-description">
+                        The world's first 100% free peer-to-peer skill exchange platform. No money, no subscriptions—just pure knowledge sharing.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Platform</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Browse Skills</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Community Guidelines</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press Kit</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Safety Tips</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 SkillSwap. All rights reserved. Built with 💚 for lifelong learners.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
